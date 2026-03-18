@@ -45,6 +45,11 @@ Exemplo de payload para POST /tasks:
 
 ---
 
+## Fluxo
+<img width="2520" height="713" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/75bd4fde-4040-48b4-ac13-6c0bdc9990e1" />
+
+---
+
 ## Como executar
 
 No Windows (PowerShell):

@@ -1,7 +1,8 @@
-<p align="left">
-  Este repositório contém o projeto TaskManager-Spring-QA e exemplifica um ecossistema de microsserviços para avaliação de crédito e emissão de cartões, seguindo o padrão solicitado: uso de Spring Cloud, comunicação síncrona (OpenFeign) e assíncrona (RabbitMQ).
-</p>
+# TaskManager-Spring-QA
 
+Uma API REST simples em Spring Boot para gerenciamento de tarefas (Task Manager). O projeto usa Spring Boot (via Maven), Spring Data JPA com H2 em memória, e inclui testes unitários com JUnit.
+
+Este repositório é um exemplo didático: implementa endpoints básicos para listar e criar tarefas, persiste em H2 (memória) e vem acompanhado de testes. É ideal para estudar uma API Spring Boot pequena com persistência em memória.
 ---
 
 ## 📌 Visão geral
@@ -12,50 +13,14 @@ Este README seguirá o padrão de arquitetura de microsserviços (Eureka, Gatewa
 
 ---
 
-## 📊 Arquitetura e Fluxo
+## Visão geral do projeto
 
-O diagrama (arquivo editável em `docs/architecture.mmd`) representa a interação entre os serviços. O microsserviço `msavaliadorcredito` atua como orquestrador, agregando dados e emitindo mensagens para a fila `emissao-cartoes` quando necessário.
+O projeto contém uma API REST com os seguintes pontos principais:
 
-Se quiser editar o diagrama, abra `docs/architecture.mmd` (Mermaid) e re-gere `docs/architecture.svg`.
-
----
-
-## 🚀 Serviços do Ecossistema (descrição)
-
-Nota: este repositório contém um serviço de exemplo (Tasks). Abaixo descrevo o conjunto de microsserviços esperado no padrão.
-
-### 🔍 Eureka Server (`eurekaserver`)
-
-Responsável pelo Service Discovery. Porta típica: `8761`.
-
-### ☁️ Cloud Gateway (`mscloudgateway`)
-
-API Gateway que centraliza o acesso externo e roteia requisições. Em exemplos, costuma usar a porta `8080`.
-
-Rotas (exemplo):
-
-- `/clientes/**` → `msclientes`
-- `/cartoes/**` → `mscartoes`
-- `/avaliacoes-credito/**` → `msavaliadorcredito`
-
-### 👤 MS Clientes (`msclientes`)
-
-Gerencia dados cadastrais dos clientes (Nome, CPF, Idade). Tecnologias típicas: Spring Data JPA + H2 (dev).
-
-### 💳 MS Cartões (`mscartoes`)
-
-Gerencia tipos de cartões e cartões emitidos. Também consome mensagens da fila RabbitMQ (`emissao-cartoes`).
-
-### 📊 MS Avaliador de Crédito (`msavaliadorcredito`)
-
-Serviço orquestrador que integra `msclientes` e `mscartoes`. Usa OpenFeign para chamadas síncronas e RabbitMQ para mensagens assíncronas (emissão de cartão).
-
----
-
-## 🔧 Conteúdo deste repositório
-
-- Código fonte Java Spring Boot em `src/main/java/com/task/manager`
-- Exemplo de controlador: `TaskController` expõe endpoints REST para gerenciamento de tarefas (lista e criação) — útil para testar infraestrutura local (RabbitMQ/Keycloak/Gateway).
+- Endpoints para gerenciar tarefas (`/tasks`) — listagem e criação.
+- Persistência usando H2 em memória (configurada em `src/main/resources/application.properties`).
+- Entidade `Task` com campos `id`, `title`, `description` e `completed`.
+- Testes unitários em `src/test/java/com/task/manager`.
 
 ### Endpoints (implementados neste repositório)
 
@@ -67,23 +32,23 @@ Exemplo de payload para POST /tasks:
 ```json
 {
   "title": "Exemplo",
-  "description": "Tarefa de teste"
+  "description": "Tarefa de teste",
+  "completed": false
 }
 ```
 
-Observação: as rotas observadas no código-fonte deste repositório estão em `src/main/java/com/task/manager/controller/TaskController.java`.
+Observação: as rotas implementadas estão em `src/main/java/com/task/manager/controller/TaskController.java`.
 
 ---
-
 ## 🛠️ Stack Tecnológico
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Java-11-orange" />
-  <img src="https://img.shields.io/badge/Spring%20Boot-2.6.x-green" />
-  <img src="https://img.shields.io/badge/Spring%20Cloud-2021.0.1-blue" />
-  <img src="https://img.shields.io/badge/RabbitMQ-Mensageria-orange" />
-  <img src="https://img.shields.io/badge/Docker-Container-blue" />
-  <img src="https://img.shields.io/badge/Keycloak-OpenID%20Connect-8A2BE2" />
+  <img src="https://img.shields.io/badge/Java-17-orange" />
+  <img src="https://img.shields.io/badge/Spring%20Boot-3.5.11-green" />
+  <img src="https://img.shields.io/badge/H2-Database-blue" />
+  <img src="https://img.shields.io/badge/Lombok-annotations-yellow" />
+  <img src="https://img.shields.io/badge/JPA-Hibernate-lightgrey" />
+  <img src="https://img.shields.io/badge/Maven-3.x-red" />
 </p>
 
 ---
@@ -219,7 +184,75 @@ Ou buildar o jar e executar:
 java -jar target/*.jar
 ```
 
-Observação: não foi definida explicitamente a propriedade `server.port` em `src/main/resources/application.properties`, portanto a aplicação usa a porta padrão `8080`. Se o Gateway também usar `8080`, ajuste `server.port` ou execute via perfil diferente.
+Observação: não foi definida explicitamente a propriedade `server.port` em `src/main/resources/application.properties`, portanto a aplicação usa a porta padrão `8080`.
+Se preferir, defina `server.port` em `application.properties` ou via parâmetro de linha de comando:
+
+```powershell
+.\mvnw.cmd spring-boot:run -Dspring-boot.run.arguments="--server.port=9090"
+```
+
+### Estrutura principal do projeto
+
+```
+src/
+  main/
+    java/com/task/manager/
+      Application.java            # classe principal
+      controller/TaskController.java
+      entity/Task.java
+      repository/TaskRepository.java
+      service/TaskService.java
+    resources/
+      application.properties      # H2 + JPA config
+      static/
+      templates/
+  test/                          # testes unitários
+```
+
+### Entidade Task
+
+A entidade `Task` possui os seguintes campos (vide `src/main/java/com/task/manager/entity/Task.java`):
+
+- `id: Long` (PK)
+- `title: String`
+- `description: String`
+- `completed: boolean`
+
+### H2 Console
+
+O projeto está configurado com H2 em memória. Console acessível em:
+
+http://localhost:8080/h2-console
+
+JDBC URL padrão (application.properties): `jdbc:h2:mem:taskdb`
+
+### Exemplos de requisições (cURL)
+
+Criar uma task:
+
+```bash
+curl -X POST http://localhost:8080/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Comprar leite","description":"Lembrar de comprar leite","completed":false}'
+```
+
+Listar tasks:
+
+```bash
+curl http://localhost:8080/tasks
+```
+
+---
+
+### Testes
+
+O projeto inclui testes unitários em `src/test/java/com/task/manager`.
+Execute os testes com:
+
+```powershell
+.\mvnw.cmd test
+```
+
 
 ### 4️⃣ Testes
 

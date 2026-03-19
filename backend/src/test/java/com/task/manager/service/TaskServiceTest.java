@@ -54,5 +54,12 @@ public class TaskServiceTest {
         assertTrue(tasks.isEmpty());
     }
 
+    @Test
+    void shouldReturnErrorWhenTaskNotFound(){
+        assertThrows(RuntimeException.class, ()->{
+           service.updateTask(999L, new Task());
+        });
+    }
+
 
 }

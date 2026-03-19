@@ -10,6 +10,7 @@ Por que este README está focado em testes
 - Para que outros desenvolvedores consigam executar, entender e estender a suíte de testes rapidamente.
 - Documenta onde estão os testes, que tipos existem e como executá-los isoladamente.
 
+
 ---
 
 ## Onde ficam os testes
@@ -206,6 +207,9 @@ curl -X DELETE http://localhost:8080/tasks/1
 
 ## Fluxo
 <img width="2520" height="713" alt="mermaid-diagram" src="https://github.com/user-attachments/assets/75bd4fde-4040-48b4-ac13-6c0bdc9990e1" />
+
+## Resultado
+<img width="1301" height="272" alt="Captura de tela 2026-03-18 221914" src="https://github.com/user-attachments/assets/7455eaef-b641-40b1-82b5-e41c884def9b" />
 
 ---
 

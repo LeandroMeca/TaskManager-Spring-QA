@@ -64,6 +64,6 @@ public class TaskIntegrationTest {
                 .andReturn().getResponse().getContentAsString();
         Task createdTask = objectMapper.readValue(response, Task.class);
 
-        mockMvc.perform(delete("/tasks" + createdTask.getId())).andExpect(status().isNoContent());
+        mockMvc.perform(delete("/tasks/" + createdTask.getId())).andExpect(status().isNoContent());
     }
 }

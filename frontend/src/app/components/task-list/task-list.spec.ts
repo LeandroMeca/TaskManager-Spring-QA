@@ -24,6 +24,7 @@ describe('TaskList', () => {
     fixture = TestBed.createComponent(TaskList);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    
   });
 
   it('deve criar o componente', () => {

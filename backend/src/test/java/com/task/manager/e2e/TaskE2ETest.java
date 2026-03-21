@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskE2ETest {
@@ -26,8 +27,10 @@ public class TaskE2ETest {
     public void setUp(){
         ChromeOptions options = new ChromeOptions();
 
+        options.addArguments("--headless");
+
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
 
         // Cria um "esperador" de até 5 segundos para lidar com o tempo de resposta da API
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -59,6 +62,65 @@ public class TaskE2ETest {
         assertTrue(driver.getPageSource().contains("Tarefa E2E Automática"), "A tarefa não foi salva na lista!");
 
     }
+
+    @Test
+    public void createdTask(){
+        driver.get("http://localhost:4200");
+
+        WebElement inputTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("title")));
+        inputTitle.clear();
+        inputTitle.sendKeys("Tarefa para Concluir");
+        inputTitle.sendKeys(Keys.TAB);
+
+        WebElement btnSave = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='submit']")));
+        btnSave.click();
+
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.tagName("body"), "Tarefa para Concluir"));
+
+
+        // 3. O robô procura o botão que "contém" o texto Concluir, ignorando espaços em branco
+        WebElement btnConcluir = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'Concluir')]")));
+        btnConcluir.click();
+
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.tagName("body"), "Reabrir"));
+
+        String codePage = driver.getPageSource();
+        assertTrue(codePage.contains("Reabrir"), "O botão não mudou para 'Reabrir'!");
+        assertTrue(codePage.contains("Concluida"), "O status da tarefa não mudou para 'Concluida'!");
+
+
+    }
+
+
+    @Test
+    public void deleteTask(){
+        driver.get("http://localhost:4200");
+
+        WebElement inputTitle = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("title")));
+        inputTitle.clear();
+        inputTitle.sendKeys("Tarefa para Excluir");
+        inputTitle.sendKeys(Keys.TAB);
+
+        WebElement btnSalve = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='submit']")));
+        btnSalve.click();
+
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.tagName("body"), "Tarefa para Excluir"));
+
+        WebElement btnDelete = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(., 'Tarefa para Excluir')]//button[contains(text(), 'Excluir')]")));
+        btnDelete.click();
+
+        wait.until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
+
+        wait.until(ExpectedConditions.invisibilityOfElementWithText(By.tagName("body"), "Tarefa para Excluir"));
+
+        String codePage = driver.getPageSource();
+        assertFalse(codePage.contains("Tarefa para Excluir"), "A tarefa não foi excluida, ela ainda aparece na tela");
+
+
+
+    }
+
 
     @AfterEach
     public void tearDown(){

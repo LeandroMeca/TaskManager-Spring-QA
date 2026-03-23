@@ -1,8 +1,13 @@
 # TaskManager-Spring-QA
 
-API REST simples para gerenciamento de tarefas construída com Spring Boot com foco em **testes automatizados**.
+API REST para gerenciamento de tarefas desenvolvida com **Spring Boot** com foco em **testes automatizados e qualidade de software**.
 
-O objetivo do projeto é demonstrar boas práticas de desenvolvimento backend e estratégias de testes utilizando JUnit, testes de integração e cobertura de código.
+O projeto demonstra:
+
+- Arquitetura em camadas
+- Testes unitários
+- Testes de integração
+- Pipeline CI com GitHub Actions
 
 ---
 
@@ -13,15 +18,16 @@ O objetivo do projeto é demonstrar boas práticas de desenvolvimento backend e 
 - Spring Data JPA
 - H2 Database
 - JUnit 5
-- MockMvc
 - Mockito
+- MockMvc
 - JaCoCo
+- GitHub Actions
 
 ---
 
 # Arquitetura
 
-A aplicação utiliza uma arquitetura em camadas:
+O projeto segue uma **arquitetura em camadas**:
 
 ```
 Controller
@@ -29,6 +35,13 @@ Service
 Repository
 Entity
 ```
+
+Cada camada possui uma responsabilidade específica:
+
+Controller → recebe requisições HTTP  
+Service → lógica de negócio  
+Repository → acesso ao banco de dados  
+Entity → representação das entidades
 
 ---
 
@@ -40,35 +53,34 @@ src
  │   ├── java
  │   │   └── com.task.manager
  │   │        ├── controller
- │   │        │     └── TaskController.java
+ │   │        │     TaskController.java
  │   │        ├── service
- │   │        │     └── TaskService.java
+ │   │        │     TaskService.java
  │   │        ├── repository
- │   │        │     └── TaskRepository.java
+ │   │        │     TaskRepository.java
  │   │        ├── entity
- │   │        │     └── Task.java
+ │   │        │     Task.java
  │   │        └── Application.java
+ │   │
  │   └── resources
- │        └── application.properties
+ │        application.properties
  │
  └── test
      └── java
           └── com.task.manager
                ├── controller
-               │     └── TaskControllerTest.java
+               │     TaskControllerTest.java
                ├── service
-               │     └── TaskServiceTest.java
+               │     TaskServiceTest.java
                └── integration
-               │      └── TaskIntegrationTest.java
-               └── e2e
-                     └── TaskE2ETest.java
+                     TaskIntegrationTest.java
 ```
 
 ---
 
 # Endpoints da API
 
-### Listar tarefas
+## Listar tarefas
 
 ```
 GET /tasks
@@ -76,7 +88,7 @@ GET /tasks
 
 ---
 
-### Criar tarefa
+## Criar tarefa
 
 ```
 POST /tasks
@@ -86,15 +98,15 @@ Payload:
 
 ```json
 {
-  "title": "Estudar Spring",
-  "description": "Praticar testes com JUnit",
+  "title": "Estudar Spring Boot",
+  "description": "Praticar testes automatizados",
   "completed": false
 }
 ```
 
 ---
 
-### Atualizar tarefa
+## Atualizar tarefa
 
 ```
 PUT /tasks/{id}
@@ -104,15 +116,15 @@ Payload:
 
 ```json
 {
-  "title": "Estudar Spring Boot",
-  "description": "Atualizando tarefa",
+  "title": "Atualizar tarefa",
+  "description": "Descrição atualizada",
   "completed": true
 }
 ```
 
 ---
 
-### Deletar tarefa
+## Deletar tarefa
 
 ```
 DELETE /tasks/{id}
@@ -122,16 +134,16 @@ DELETE /tasks/{id}
 
 # Executando o Projeto
 
-Executar aplicação:
-
-```
-./mvnw spring-boot:run
-```
-
-Ou no Windows:
+Rodar aplicação:
 
 ```
 mvnw.cmd spring-boot:run
+```
+
+Ou
+
+```
+./mvnw spring-boot:run
 ```
 
 ---
@@ -141,12 +153,6 @@ mvnw.cmd spring-boot:run
 Executar todos os testes:
 
 ```
-./mvnw test
-```
-
-Windows:
-
-```
 mvnw.cmd test
 ```
 
@@ -154,7 +160,7 @@ mvnw.cmd test
 
 # Executar Teste Específico
 
-Executar apenas testes de Service:
+Executar apenas testes de service:
 
 ```
 mvnw.cmd -Dtest=TaskServiceTest test
@@ -170,9 +176,9 @@ mvnw.cmd -Dtest=TaskIntegrationTest test
 
 # Banco de Dados
 
-O projeto utiliza **H2 Database em memória** para facilitar testes e execução local.
+O projeto utiliza **H2 Database em memória**.
 
-Console do H2:
+Console do banco:
 
 ```
 http://localhost:8080/h2-console
@@ -188,12 +194,29 @@ JDBC URL: jdbc:h2:mem:taskdb
 
 # Cobertura de Testes
 
-O projeto utiliza **JaCoCo** para análise de cobertura de testes.
+O projeto utiliza **JaCoCo** para cobertura de testes.
 
-Após rodar os testes o relatório será gerado em:
+Após executar os testes o relatório estará disponível em:
 
 ```
 target/site/jacoco/index.html
+```
+
+---
+
+# CI Pipeline
+
+O projeto possui **integração contínua utilizando GitHub Actions**.
+
+A cada push ou pull request o pipeline executa:
+
+- build da aplicação
+- execução dos testes automatizados
+
+Workflow localizado em:
+
+```
+.github/workflows/ci.yml
 ```
 
 ---
@@ -216,7 +239,9 @@ curl http://localhost:8080/tasks
 
 ---
 
-# Executar Build
+# Build do Projeto
+
+Gerar build:
 
 ```
 mvnw.cmd clean package
@@ -232,11 +257,14 @@ java -jar target/*.jar
 
 # Próximos Passos
 
-- Pipeline CI/CD
-- Dockerização da aplicação
+- Frontend em Angular
+- Testes E2E com Selenium
+- Docker
+- Testes de performance
+- Monitoramento
 
 ---
 
 # Autor
 
-Projeto criado para estudos de **Spring Boot, testes automatizados e QA**.
+Projeto desenvolvido para estudo de **Spring Boot, testes automatizados e qualidade de software**.

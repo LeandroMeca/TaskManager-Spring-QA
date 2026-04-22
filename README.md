@@ -1,5 +1,7 @@
 # TaskManager - QA Automation Portfolio
 
+[![QA Pipeline de Testes](https://github.com/LeandroMeca/TaskManager-Spring-QA/actions/workflows/qa-pipeline.yml/badge.svg)](https://github.com/LeandroMeca/TaskManager-Spring-QA/actions/workflows/qa-pipeline.yml)
+
 Aplicação Fullstack (Spring Boot + Angular) para gerenciamento de tarefas, desenvolvida como um **Portfólio Avançado de Garantia de Qualidade (QA)**. 
 
 O foco deste projeto não é apenas a construção do software, mas sim a implementação de uma **Pirâmide de Testes Completa** e uma esteira de **Integração Contínua (CI/CD)** robusta.

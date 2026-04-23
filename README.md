@@ -1,6 +1,6 @@
 # TaskManager - QA Automation Portfolio
 
-[![QA Pipeline de Testes](https://github.com/LeandroMeca/TaskManager-Spring-QA/actions/workflows/qa-pipeline.yml/badge.svg)](https://github.com/LeandroMeca/TaskManager-Spring-QA/actions/workflows/qa-pipeline.yml) ![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen) ![Build](https://img.shields.io/badge/build-passing-brightgreen)
+[![QA Pipeline de Testes](https://github.com/LeandroMeca/TaskManager-Spring-QA/actions/workflows/qa-pipeline.yml/badge.svg)](https://github.com/LeandroMeca/TaskManager-Spring-QA/actions/workflows/qa-pipeline.yml) ![Coverage](https://img.shields.io/badge/coverage-94%25-brightgreen) ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Tests](https://img.shields.io/badge/tests-unit%20%7C%20api%20%7C%20e2e-blue)
 
 ![Java](https://img.shields.io/badge/Java-17-orange)

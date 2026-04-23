@@ -1,6 +1,12 @@
 # TaskManager - QA Automation Portfolio
 
-[![QA Pipeline de Testes](https://github.com/LeandroMeca/TaskManager-Spring-QA/actions/workflows/qa-pipeline.yml/badge.svg)](https://github.com/LeandroMeca/TaskManager-Spring-QA/actions/workflows/qa-pipeline.yml)
+[![QA Pipeline de Testes](https://github.com/LeandroMeca/TaskManager-Spring-QA/actions/workflows/qa-pipeline.yml/badge.svg)](https://github.com/LeandroMeca/TaskManager-Spring-QA/actions/workflows/qa-pipeline.yml) ![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen) ![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-unit%20%7C%20api%20%7C%20e2e-blue)
+
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.6-green)
+![Angular](https://img.shields.io/badge/Angular-Frontend-red)
+
 
 Aplicação Fullstack (Spring Boot + Angular) para gerenciamento de tarefas, desenvolvida como um **Portfólio Avançado de Garantia de Qualidade (QA)**. 
 

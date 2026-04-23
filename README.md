@@ -109,3 +109,9 @@ npx newman run ./postman/task-api.json
 ## 👤 Sobre o Projeto
 
 Este projeto foi documentado, planejado e executado utilizando metodologias ágeis, simulando um ambiente real de desenvolvimento e validação contínua. É a prova prática do ciclo completo de Engenharia de Qualidade (SDLC).
+
+## 📈 Resultados
+
+- Redução de falhas através de validação automatizada
+- Garantia de qualidade em múltiplas camadas
+- Simulação de pipeline real de produção
